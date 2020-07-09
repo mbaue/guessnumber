@@ -1,5 +1,7 @@
 package guessnumber;
 
+import java.util.Random;
+
 public class Game implements IGame {
 	private int guessCount;
 	private int guessedNumber;
@@ -15,8 +17,8 @@ public class Game implements IGame {
 	public int startNewGame() {
 		guessCount = 0;
 		gameOver = false;
-		// random ... 0.0 <= cislo < 1.0
-		guessedNumber = (int) (Math.random() * 100);
+		Random random = new Random();
+		guessedNumber = random.nextInt(100);
 		return guessedNumber;
 	}
 
@@ -30,22 +32,22 @@ public class Game implements IGame {
 	 */
 	@Override
 	public String guess(int guess) {
-		if (guess < 0 || guess >= 100) {
-			return "sme mimo rozsah";
-		}
-		if (guess < guessedNumber) {
+		if (!isGameOver()) {
+			if (guess < 0 || guess >= 100) {
+				return "hádané číslo je mimo povolený rozsah";
+			}
+
 			guessCount++;
-			return "hadane cislo je vetsi";
-		} else if (guess > guessedNumber) {
-			guessCount++;
-			return "hadane cislo je mensi ";
-		} else if (guess == guessedNumber) {
-			guessCount++;
-			gameOver = true;
-			return "uhodli jsme";
+			if (guess < guessedNumber) {
+				return "hádané číslo je větší";
+			} else if (guess > guessedNumber) {
+				return "Hádané číslo je menší";
+			} else {
+				gameOver = true;
+				return "správně! toto je hádané číslo";
+			}
 		} else {
-			// neco se zvrtlo
-			return null;
+			return "nelze hádat, hra byla ukončena";
 		}
 	}
 
