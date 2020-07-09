@@ -18,6 +18,15 @@ public interface IGame {
 	int startNewGame();
 
 	/**
+	 * Metoda, která nastartuje novou hru. Nové číslo k hádání se převezme z
+	 * parametru, počet pokusů bude nastaven na 0, atd... Tato varianta metody se
+	 * využívá pro nastavení hádaného čísla během testování.
+	 *
+	 * @param newSecretNumber nové číslo k hádání
+	 */
+	void startNewGame(int newSecretNumber);
+
+	/**
 	 * Metoda pro předání tipu od hráče. Metoda vrací text, který hráči řekne, zda
 	 * jeho tip je menší nebo větší než hádané číslo, případně že uhodl nebo je jeho
 	 * tip mimo interval 0 - 99.

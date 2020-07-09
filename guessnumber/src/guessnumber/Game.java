@@ -7,6 +7,12 @@ public class Game implements IGame {
 	private int guessedNumber;
 	private boolean gameOver;
 
+	public final String MSG_OUT = "Hádané číslo je mimo povolený rozsah.";
+	public final String MSG_LOWER = "Hádané číslo je menší než hledané číslo.";
+	public final String MSG_GREATER = "Hádané číslo je větší než hledané číslo.";
+	public final String MSG_CORRECT = "Správně! Toto je hledané číslo.";
+	public final String MSG_OVER = "Nelze hádat, hra byla ukončena.";
+
 	/**
 	 * Metoda, která nastartuje novou hru. Bude vygenerováno nové číslo k hádání,
 	 * počet pokusů nastaven na 0, atd...
@@ -22,6 +28,13 @@ public class Game implements IGame {
 		return guessedNumber;
 	}
 
+	@Override
+	public void startNewGame(int newSecretNumber) {
+		guessCount = 0;
+		gameOver = false;
+		guessedNumber = newSecretNumber;
+	}
+
 	/**
 	 * Metoda pro předání tipu od hráče. Metoda vrací text, který hráči řekne, zda
 	 * jeho tip je menší nebo větší než hádané číslo, případně že uhodl nebo je jeho
@@ -34,20 +47,20 @@ public class Game implements IGame {
 	public String guess(int guess) {
 		if (!isGameOver()) {
 			if (guess < 0 || guess >= 100) {
-				return "hádané číslo je mimo povolený rozsah";
+				return MSG_OUT;
 			}
 
 			guessCount++;
 			if (guess < guessedNumber) {
-				return "hádané číslo je větší";
+				return MSG_LOWER;
 			} else if (guess > guessedNumber) {
-				return "Hádané číslo je menší";
+				return MSG_GREATER;
 			} else {
 				gameOver = true;
-				return "správně! toto je hádané číslo";
+				return MSG_CORRECT;
 			}
 		} else {
-			return "nelze hádat, hra byla ukončena";
+			return MSG_OVER;
 		}
 	}
 
@@ -71,4 +84,5 @@ public class Game implements IGame {
 	public boolean isGameOver() {
 		return gameOver;
 	}
+
 }
