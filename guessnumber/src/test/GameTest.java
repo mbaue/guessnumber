@@ -12,22 +12,30 @@ public class GameTest {
 	@Before
 	public void setUp() throws Exception {
 		game = new Game();
-		game.startNewGame(50);
 	}
 
 	@Test
 	public void testStartNewGame() {
-		// fail("Not yet implemented");
+		int number = game.startNewGame();
+		
+		Assert.assertEquals("spatne nastaveno pocatecni guessCount", 0, game.getGuessCount());
+		Assert.assertFalse("spatne nastaveno pocatecni gameOver", game.isGameOver());
+		Assert.assertTrue("vygenerované číslo je mimo interval", (number>= 0));
+		Assert.assertTrue("vygenerované číslo je mimo interval", (number< 100));
 	}
 
 	@Test
 	public void testStartNewGameInt() {
+		game.startNewGame(50);
+		
 		Assert.assertEquals("spatne nastaveno pocatecni guessCount", 0, game.getGuessCount());
 		Assert.assertFalse("spatne nastaveno pocatecni gameOver", game.isGameOver());
 	}
 
 	@Test
 	public void testGuess() {
+		game.startNewGame(50);
+		
 		Assert.assertTrue("spatna hlaska - hadane cislo mensi nez hledane", game.guess(25).equals(game.MSG_LOWER));
 		Assert.assertTrue("spatna hlaska - hadane cislo mensi nez hledane", game.guess(0).equals(game.MSG_LOWER));
 		Assert.assertTrue("spatna hlaska - hadane cislo mimo povoleny rozsah", game.guess(-1).equals(game.MSG_OUT));
@@ -39,6 +47,8 @@ public class GameTest {
 
 	@Test
 	public void testGetGuessCount() {
+		game.startNewGame(50);
+		
 		Assert.assertEquals("spatne pocet tipu - ma byt inicialni 0", 0, game.getGuessCount());
 		game.guess(0);
 		Assert.assertEquals("spatne pocet tipu - ma byt navyseno na 1", 1, game.getGuessCount());
@@ -56,6 +66,8 @@ public class GameTest {
 
 	@Test
 	public void testIsGameOver() {
+		game.startNewGame(50);
+		
 		Assert.assertFalse("spatne nastaveno pocatecni gameOver", game.isGameOver());
 		game.guess(0);
 		Assert.assertFalse("spatne nastaveno pocatecni gameOver", game.isGameOver());
