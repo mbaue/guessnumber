@@ -13,8 +13,9 @@ public class Game implements IGame {
 	public final String MSG_CORRECT = "Správně! Toto je hledané číslo.";
 	public final String MSG_OVER = "Nelze hádat, hra byla ukončena.";
 
+	public final String X = "added now";
 	/**
-	 * Metoda, která nastartuje novou hru. Bude vygenerováno nové číslo k hádání,
+	 * xxx Metoda, která nastartuje novou hru. Bude vygenerováno nové číslo k hádání,
 	 * počet pokusů nastaven na 0, atd...
 	 *
 	 * @return vygenerované číslo k hádání (využívá se při testování)
